@@ -1,10 +1,10 @@
-package domain
+package model
 
-type SignedPreKey struct {
+type SignedPreKeyModel struct {
 	Key       string `json:"key"`
 	Signature string `json:"signature"`
 }
 
-type OneTimePreKey struct {
+type OneTimePreKeyModel struct {
 	Key string `json:"key"`
 }
