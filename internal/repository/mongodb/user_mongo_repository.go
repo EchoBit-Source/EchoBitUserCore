@@ -29,7 +29,7 @@ func toMongoUser(u model.UserModel) (mu mongoUser, err error) {
 	mu.UpdatedAt = u.UpdatedAt
 
 	// Convert each domain.OneTimePreKeys to a MongoOneTimePreKeys
-	for _, otk := range u.OneTimePreKey {
+	for _, otk := range u.OneTimePreKeys {
 		mu.OneTimePreKey = append(mu.OneTimePreKey, MongoOneTimePreKey(otk))
 	}
 	return mu, nil
@@ -46,7 +46,7 @@ func toModelUser(mu mongoUser) (u model.UserModel) {
 
 	// Convert each MongoOneTimePreKeys to a domain.OneTimePreKeys
 	for _, m := range mu.OneTimePreKey {
-		u.OneTimePreKey = append(u.OneTimePreKey, model.OneTimePreKeyModel(m))
+		u.OneTimePreKeys = append(u.OneTimePreKeys, model.OneTimePreKeyModel(m))
 	}
 	return u
 }

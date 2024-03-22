@@ -1,6 +1,21 @@
 package dto
 
-import "github.com/EchoBit-Source/EchoBitUserCore/internal/model"
+import (
+	"time"
+
+	"github.com/EchoBit-Source/EchoBitUserCore/internal/model"
+)
+
+type UserDto struct {
+	ID             string             `json:"id"`
+	Username       string             `json:"username"`
+	PasswordHash   string             `json:"passwordHash"`
+	PublicKey      string             `json:"publicKey"`
+	SignedPreKey   SignedPreKeyDto    `json:"signedPreKey"`
+	OneTimePreKeys []OneTimePreKeyDto `json:"oneTimePreKeys"`
+	CreatedAt      time.Time          `json:"createdAt"`
+	UpdatedAt      time.Time          `json:"updatedAt"`
+}
 
 type PublicUserDto struct {
 	Username  string `json:"username"`
@@ -21,7 +36,7 @@ func (c *CreateUserDto) ToUser(hashedPassword string) *model.UserModel {
 		PasswordHash: hashedPassword,
 		PublicKey:    c.PublicKey,
 		SignedPreKey: model.SignedPreKeyModel(c.SignedPreKey),
-		OneTimePreKey: func() (otks []model.OneTimePreKeyModel) {
+		OneTimePreKeys: func() (otks []model.OneTimePreKeyModel) {
 			for _, otk := range c.OneTimePreKeys {
 				otks = append(otks, model.OneTimePreKeyModel(otk))
 			}
